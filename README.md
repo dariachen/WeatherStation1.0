@@ -1,7 +1,24 @@
-# WeatherStation1.0
-Weather Station Arduino sketch is based on the LinkIt ONE development board. 
-Supporting libraries are: 
-  1. Adafruit_BMP085_Unified - https://github.com/adafruit/Adafruit_BMP085_Unified
-  2. Adafruit_Sensor - https://github.com/adafruit/Adafruit_Sensor
-  3. Grove_LCD_RGB_Backlight - https://github.com/Seeed-Studio/Grove_LCD_RGB_Backlight
-  4. HttpClient - https://github.com/amcewen/HttpClient/releases
+# Prepare your development Environment
+
+1. [Get started with LinkIt One and Arduino IDE](https://docs.labs.mediatek.com/resource/linkit-one/en/getting-started/get-started-on-os-x/get-the-hardware-and-software-for-mac-os-x)
+2. [Install LinkIt One SDK in the Board Manager of Arduino IDE](https://docs.labs.mediatek.com/resource/linkit-one/en/getting-started/get-started-on-os-x/install-the-arduino-ide-and-linkit-one-sdk-on-os-x)
+3. The following driver support is required, so please download these library and place them at the same folder as your *.ino sketch. 
+
+	* [Adafruit BMP085 Unified](https://github.com/adafruit/Adafruit_BMP085_Unified)
+	* [Adafruit Sensor](ttps://github.com/adafruit/Adafruit_Sensor)
+	* [Grove LCD RGB Backlight](https://github.com/Seeed-Studio/Grove_LCD_RGB_Backlight)
+	* [HttpClient](https://github.com/amcewen/HttpClient/releases)
+
+4. Before you download this Arduino sketch into your LinkIt One, you have to configure the Wi-Fi and some variables (MCS device ID and key) which will be used in the Arduino sketch. 
+
+	* [How to configure Wi-Fi](https://docs.labs.mediatek.com/resource/linkit-one/en/tutorials/weather-station-tutorial#WeatherStationtutorial-configWiFi) and you can modify the **wifi.txt** attached in this repository.
+	* Fill in the device ID and device key of your MCS device into **device.txt** file.
+
+5. Upload the *.ino into your LinkIt One and have fun.
+
+
+# WeatherStation tutorial 
+You can refer to the official tutorial for more comprehensive information. 
+[MediaTek Labs: Weather Station tutorial](https://docs.labs.mediatek.com/resource/linkit-one/en/tutorials/weather-station-tutorial)
+
+

@@ -1,5 +1,7 @@
+
+
 // == revision history
-// 20150313 update to command server command format 
+// 20180329 update to command server length
 #include <LTask.h>
 #include <LWiFi.h>
 #include <LWiFiClient.h>
@@ -7,9 +9,12 @@
 #include <math.h>
 #include <LDateTime.h>
 #include <HttpClient.h>
-#include "\Adafruit_Sensor\Adafruit_Sensor.h"
-#include "\Adafruit_BMP085_Unified\Adafruit_BMP085_U.h"
-#include "Grove_LCD_RGB_Backlight\rgb_lcd.h"
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BMP085_U.h>
+#include <rgb_lcd.h>
+// #include "\Adafruit_Sensor\Adafruit_Sensor.h"
+// #include "\Adafruit_BMP085_Unified\Adafruit_BMP085_U.h"
+// #include "Grove_LCD_RGB_Backlight\rgb_lcd.h"
 #include <LFlash.h>
 
 // ================================================
@@ -60,7 +65,8 @@ LWiFiClient c;
 LWiFiClient c2;
 char port[5]="    ";
 char connection_info[21]="                    ";
-char ip[15]="              ";
+//char ip[16]="               ";
+String ip = "";
 int portnum;
 int val = 0;
 String tcpdata;
@@ -212,10 +218,20 @@ void getconnectInfo(){
   }
   Serial.print("The connection info: ");
   Serial.println(connection_info);
+
+  /*
   int i;
   for(i=0;i<separater;i++)
   {  ip[i]=connection_info[i];
+  } 
+
+  */
+
+  int i;
+  for(i=0;i<separater;i++)
+  {  ip += connection_info[i];
   }
+  
   int j=0;
   separater++;
   for(i=separater;i<21 && j<4;i++)
@@ -224,11 +240,15 @@ void getconnectInfo(){
   }
   Serial.println("The TCP Socket connection instructions:");
   Serial.print("IP: ");
-  Serial.println(ip);
-  Serial.print("Port: ");
-  Serial.println(port);
+  Serial.print(ip);
+  Serial.println("!");
+  Serial.println(strlen("54.254.183.59"));
   portnum = atoi (port);
-
+  Serial.print("Port: ");
+  Serial.print(port);
+  Serial.print(portnum);
+  Serial.println("!");
+  
 } //getconnectInfo
 
 // ==============================================================
@@ -238,9 +258,13 @@ void connectTCP(){
   //establish TCP connection with TCP Server with designate IP and Port
   c.stop();
   Serial.println("Connecting to TCP");
-  while (0 == c.connect(ip, portnum))
+
+  
+  //while (0 == c.connect("54.254.183.59", 443))
+  while (0 == c.connect(ip.c_str(), portnum))
   {
-    Serial.println("Re-Connecting to TCP");    
+    Serial.println("Re-Connecting to TCP"); 
+    Serial.println(tcpdata);   
     delay(1000);
   }  
   Serial.println("send TCP connect");
@@ -670,9 +694,22 @@ void loop() {
           lcd.clear();
           lcd.print("Switch FAN OFF");
           tcpcmd="";
-        }
+        }/*else if(tcpcmd.substring(40,44).equals("FOTA")){
+          lcd.clear();
+          lcd.print("FOTA....");
+          delay(500);
+          break;
+          }*/
       }
    }
+
+  if (tcpcmd.substring(40,44).equals("FOTA")){
+    String fota_version = tcpcmd.substring(45,48);
+    lcd.clear();
+    lcd.print("FOTA to " + fota_version);
+    delay(3000);
+  }
+ 
   //Check for hearbeat interval 
   LDateTime.getRtc(&rtc2);
   if ((rtc2 - lrtc2) >= per1) {

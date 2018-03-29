@@ -1,5 +1,4 @@
 
-
 // == revision history
 // 20180329 update to command server length
 #include <LTask.h>
@@ -9,12 +8,12 @@
 #include <math.h>
 #include <LDateTime.h>
 #include <HttpClient.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BMP085_U.h>
+//#include <Adafruit_Sensor.h>
+//#include <Adafruit_BMP085_U.h>
 #include <rgb_lcd.h>
-// #include "\Adafruit_Sensor\Adafruit_Sensor.h"
-// #include "\Adafruit_BMP085_Unified\Adafruit_BMP085_U.h"
-// #include "Grove_LCD_RGB_Backlight\rgb_lcd.h"
+#include "Adafruit_Sensor/Adafruit_Sensor.h" 
+#include "Adafruit_BMP085_Unified/Adafruit_BMP085_U.h"
+//#include "Grove_LCD_RGB_Backlight/rgb_lcd.h"
 #include <LFlash.h>
 
 // ================================================
@@ -65,7 +64,7 @@ LWiFiClient c;
 LWiFiClient c2;
 char port[5]="    ";
 char connection_info[21]="                    ";
-//char ip[16]="               ";
+// because the length of TCP server IP is not fixed. We should use String instead of Char[]
 String ip = "";
 int portnum;
 int val = 0;
@@ -219,13 +218,6 @@ void getconnectInfo(){
   Serial.print("The connection info: ");
   Serial.println(connection_info);
 
-  /*
-  int i;
-  for(i=0;i<separater;i++)
-  {  ip[i]=connection_info[i];
-  } 
-
-  */
 
   int i;
   for(i=0;i<separater;i++)
@@ -242,10 +234,10 @@ void getconnectInfo(){
   Serial.print("IP: ");
   Serial.print(ip);
   Serial.println("!");
-  Serial.println(strlen("54.254.183.59"));
   portnum = atoi (port);
   Serial.print("Port: ");
   Serial.print(port);
+  Serial.print("/");
   Serial.print(portnum);
   Serial.println("!");
   
@@ -260,7 +252,6 @@ void connectTCP(){
   Serial.println("Connecting to TCP");
 
   
-  //while (0 == c.connect("54.254.183.59", 443))
   while (0 == c.connect(ip.c_str(), portnum))
   {
     Serial.println("Re-Connecting to TCP"); 
@@ -694,12 +685,7 @@ void loop() {
           lcd.clear();
           lcd.print("Switch FAN OFF");
           tcpcmd="";
-        }/*else if(tcpcmd.substring(40,44).equals("FOTA")){
-          lcd.clear();
-          lcd.print("FOTA....");
-          delay(500);
-          break;
-          }*/
+        }
       }
    }
 

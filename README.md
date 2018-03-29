@@ -5,9 +5,29 @@
 3. The following driver support is required, so please download these library and place them at the same folder as your *.ino sketch. 
 
 	* [Adafruit BMP085 Unified](https://github.com/adafruit/Adafruit_BMP085_Unified)
-	* [Adafruit Sensor](ttps://github.com/adafruit/Adafruit_Sensor)
+	* [Adafruit Sensor](https://github.com/adafruit/Adafruit_Sensor)
 	* [Grove LCD RGB Backlight](https://github.com/Seeed-Studio/Grove_LCD_RGB_Backlight)
 	* [HttpClient](https://github.com/amcewen/HttpClient/releases)
+
+	You can include these libraries in 2 different ways:
+	
+	1. Install them directly from library manager in the Arduino IDE.
+		![](LibManager_install.png)
+		![](LibManager_list.png)
+		
+		```
+		#include <Adafruit_Sensor.h>
+		#include <Adafruit_BMP085_U.h>
+		#include <rgb_lcd.h>
+		```
+	
+	2. download the libraries and place them at the same directory as your *.ino sketch (Just like what we do in this example).
+	
+		```
+		#include "Adafruit_Sensor/Adafruit_Sensor.h" 
+   		#include "Adafruit_BMP085_Unified/Adafruit_BMP085_U.h"
+   		#include "Grove_LCD_RGB_Backlight/rgb_lcd.h"
+		```	
 
 4. Before you download this Arduino sketch into your LinkIt One, you have to configure the Wi-Fi and some variables (MCS device ID and key) which will be used in the Arduino sketch. 
 

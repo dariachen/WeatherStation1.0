@@ -24,7 +24,7 @@
 #define sht21temp  B11110011
 #define sht21humid B11110101
 #define WIFI_AUTH LWIFI_WPA  // choose from LWIFI_OPEN, LWIFI_WPA, or LWIFI_WEP.
-#define SITE_URL "api.mediatek.com"
+#define SITE_URL "api.mediatek.cn"
 #define per 5 // time interval in seconds to upload sensor data to MCS
 #define per1 50 // time interval in seconds to initiate TCP heart beat
 #define Drv LFlash
@@ -94,9 +94,9 @@ void readDeviceSetting()
 {
   Drv.begin();
 
-  LFile f = Drv.open("device.txt", FILE_READ);
+  LFile f = Drv.open("device_china.txt", FILE_READ);
   if(!f)
-    fatal_error("Fail to open device.txt");
+    fatal_error("Fail to open device_china.txt");
 
   char buf[100];
   int len = f.size();

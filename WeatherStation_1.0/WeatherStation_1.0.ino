@@ -689,6 +689,12 @@ void loop() {
       }
    }
 
+  while (!c.connected())
+    {
+      Serial.println("Reconnect to TCP server.");
+      connectTCP();
+      }
+
   if (tcpcmd.substring(40,44).equals("FOTA")){
     String fota_version = tcpcmd.substring(45,48);
     lcd.clear();
